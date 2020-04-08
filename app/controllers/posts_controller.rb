@@ -4,12 +4,16 @@ class PostsController < ApplicationController
         @post = Post.new
     end
 
+    def show
+        @post = Post.find(params[:id])
+    end
+    
     def create
-        @post = Post.new(params[:id])
-        @post.save
+        @post = Post.create(post_params)
+       
 
         flash[:messages] = @post.errors.full_messages
-        byebug
+
         if @post.valid? 
         redirect_to post_path(@post)
         else
